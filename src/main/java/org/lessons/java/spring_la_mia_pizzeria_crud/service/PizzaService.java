@@ -62,7 +62,7 @@ public class PizzaService {
         return pizzaRepository.existsById(id);
     }
 
-    public Boolean exist(Pizza pizza) {
+    public Boolean exists(Pizza pizza) {
         return existsById(pizza.getId());
     }
 }
