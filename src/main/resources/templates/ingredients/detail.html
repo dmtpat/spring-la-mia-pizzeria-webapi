@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="~{fragments :: bootstrapCss()}"></th:block>
+    <title>Pizzas</title>
+</head>
+
+<body>
+    <th:block th:replace="~{fragments :: navbar}"></th:block>
+    <div class="container text-center">
+        <div class="row">
+
+            <div th:if="${selected == null}" class="col-12">
+                <br>
+                <p>L'ingrediente selezionato non è disponibile! Torna all'elenco degli ingredienti.</p>
+                <a class="btn btn-success" th:href="|/ingredients|">Elenco ingrdienti</a>
+            </div>
+        </div>
+        <div class="row">
+            <th:block th:if="${selected != null}" th:object="${selected}">
+                <div class="card col-12">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                    <div class="card-body">
+                        <h3 class="card-title">L'ingrediente selezionato è <span class="fw-bold">[[*{name}]]</span></h3>
+                        <p class="card-text"></p>
+                        <div class="d-flex justify-content-between">
+
+                            <a th:href="|/ingredients/edit/*{id}|" class="btn btn-outline-warning">✏</a>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                th:data-bs-target="|#deleteModal-*{id}|">🗑</button>
+
+                            <div class="modal fade" th:id="|deleteModal-*{id}|" tabindex="-1"
+                                aria-labelledby="youSureModal" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="youSureModal">Delete <span
+                                                    class="fw-bold">[[*{name}]]</span></h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-start">
+                                            <h3>Are you sure? </h3>
+                                            <h4>Do you want to <span class="text-decoration-underline">delete</span> the
+                                                ingredient
+                                                <span class="fw-bold fs-2">[[*{name}]]</span>?
+                                            </h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Dismiss</button>
+                                            <form action="#" th:action="@{/ingredients/delete/{id}(id = *{id})}"
+                                                method="post">
+                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- -----------------------pizze con l'ingrediente selezionato-----------------^.^---- -->
+                <div class="mt-3 col-4 text-start" th:each="pizza : ${pizzas}">
+                    <div class="card" style="width: 18rem;">
+                        <img th:src="${pizza.imageUrl}" class="card-img-top"
+                            style="width: 18rem; height: 18rem; overflow: hidden;" th:alt="|imagine-di-${pizza.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">Pizza [[${pizza.name}]]</h5>
+                            <p class="card-text">Description: [[${pizza.description}]]</p>
+                            <p th:text="|€ ${pizza.getRoundedPrice()}|" />
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <th:block th:replace="~{fragments :: bootstrapJs()}"></th:block>
+</body>
+
+</html>

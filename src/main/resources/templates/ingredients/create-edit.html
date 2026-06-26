@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="~{fragments :: bootstrapCss()}"></th:block>
+    <title>Pizzas</title>
+</head>
+
+<body>
+    <th:block th:replace="~{fragments :: navbar}"></th:block>
+    <div class="container text-center">
+        <div class="col-12">
+            <h1 th:text="|Pizzeria Napoli|" />
+            <h2>Ingredients</h2>
+        </div>
+        <div class="col-6 text-start">
+            <form id="pizza-form" th:action="${edit} ?@{|/ingredients/edit/${ingredient.id}|} :@{/ingredients/create}"
+                th:object="${ingredient}" method="post">
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" th:errorClass="is-invalid">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                        <ul>
+                            <li th:each="error : ${#fields.hasErrors('name')}" th:text="${error}" />
+                        </ul>
+                    </div>
+                </div>
+                <div class="mb-3 d-flex justify-content-between">
+                    <input type="submit" value="submit" class="btn btn-outline-primary">
+                    <a th:href="${edit} ?@{|/ingredients/edit/${ingredient.getId()}|} :@{|/ingredients/create|}"
+                        class="btn btn-outline-primary">Reset</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <th:block th:replace="~{fragments :: bootstrapJs()}"></th:block>
+</body>
+
+</html>

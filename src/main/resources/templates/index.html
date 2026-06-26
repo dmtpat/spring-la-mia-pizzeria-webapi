@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="~{fragments :: bootstrapCss()}"></th:block>
+    <title>Pizzas</title>
+</head>
+
+<body>
+    <th:block th:replace="~{fragments :: navbar}"></th:block>
+    <div class="container text-center">
+
+        <!-- <p th:if="${pizzas.size() > 0}" th:text="${pizzas}" /> -->
+        <p th:unless="${pizzas.size() > 0}" th:text="|Non ci sono pizze nel nostro menù!|" />
+        <table th:if="${pizzas.size() > 0}" class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th class="text-start">Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Details</th>
+                    <th>Modify</th>
+                    <th>Delete</th>
+                    <th>Discount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pizza : ${pizzas}" th:object="${pizza}">
+                    <td th:text="*{id}" />
+                    <td class="text-start" th:text="*{name}" />
+                    <td class="text-start" th:text="*{description}" />
+                    <td th:text="*{price}" />
+                    <td><a class="btn btn-success px-3" th:href="|pizza/*{id}|"> + </a></td>
+                    <td><a class="btn btn-warning" th:href="|pizza/edit/*{id}|">✏</a></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            th:data-bs-target="|#deleteModal-*{id}|">🗑</button>
+
+                        <div class="modal fade" th:id="|deleteModal-*{id}|" tabindex="-1" aria-labelledby="youSureModal"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="youSureModal">Delete <span
+                                                class="fw-bold">[[*{name}]]</span></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        <h3>Are you sure? </h3>
+                                        <h4>Do you want to <span class="text-decoration-underline">delete</span> pizza
+                                            <span class="fw-bold fs-2">[[*{name}]]</span>?
+                                        </h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Dismiss</button>
+                                        <form action="#" th:action="@{/pizza/delete/{id}(id = *{id})}" method="post">
+                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><a class="btn btn-primary" th:href="|pizza/*{id}/discounts|">💰</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <th:block th:replace="~{fragments :: bootstrapJs()}"></th:block>
+</body>
+
+</html>

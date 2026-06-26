@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="~{fragments :: bootstrapCss()}"></th:block>
+    <title>Details</title>
+</head>
+
+<body>
+    <th:block th:replace="~{fragments :: navbar}"></th:block>
+
+    <div class="container text-center">
+        <div class="row">
+            <div th:if="${selected == null}" class="col-12">
+                <br>
+                <p>La pizza selzionata non è disponibile! Torna all'elenco delle pizze.</p>
+                <a class="btn btn-success" th:href="|/pizza|">Elenco delle pizze</a>
+            </div>
+            <th:block th:if="${selected != null}" th:object="${selected}">
+                <div class="col-12">
+                    <h1 th:text="*{name}" class="fs-2" />
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <img th:src="*{imageUrl}" style="width: 200px;" th:alt="|pizza *{name}|">
+                        <div class="card-body text-start">
+                            <!-- <li th:text="*{name}" class="fs-2" /> -->
+                            <h5 class="card-title" th:text="*{description}" />
+                            <p class="card-text" th:text="|€ *{price}|" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="alert alert-warning" th:text="|Nessuno sconto presente per questa pizza!|"
+                                th:unless="*{getDiscounts().size() > 0}" />
+                            <table class="table" th:if="*{getDiscounts().size() > 0}">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">NOME</th>
+                                        <th scope="col">DATA INIZIO</th>
+                                        <th scope="col">DATA FINE</th>
+                                        <th scope="col">EDIT</th>
+                                        <th scope="col">DELETE</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-start">
+                                    <tr th:each="discount : ${selected.getDiscounts()}" th:object="${discount}">
+                                        <th scope="row" th:text="*{id}"></th>
+                                        <td th:text="*{title}"></td>
+                                        <td th:text="*{startingDate}"></td>
+                                        <td th:if="*{finalDate} == null" class="text-success" th:text="|In corso...|">
+                                        </td>
+                                        <td th:unless="*{finalDate} == null" th:text="*{finalDate}"></td>
+                                        <td><a th:href="@{|/discounts/edit/${discount.id}|}"
+                                                class="btn btn-success px-3">+</a>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                th:data-bs-target="|#deleteModal-*{id}|">🗑</button>
+
+                                            <div class="modal fade" th:id="|deleteModal-*{id}|" tabindex="-1"
+                                                aria-labelledby="youSureModal" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="youSureModal">Delete <span
+                                                                    class="fw-bold">[[*{title}]]</span></h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <h3>Are you sure? </h3>
+                                                            <h4>Do you want to <span
+                                                                    class="text-decoration-underline">delete</span>
+                                                                discount
+                                                                <span class="fw-bold fs-2">[[*{title}]]</span>?
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Dismiss</button>
+                                                            <form action="#"
+                                                                th:action="@{/discounts/delete/{id}(id = *{id})}"
+                                                                method="post">
+                                                                <input type="submit" class="btn btn-danger"
+                                                                    value="Delete">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <th:block th:replace="~{fragments :: bootstrapJs()}"></th:block>
+</body>
+
+</html>
