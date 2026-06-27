@@ -1,12 +1,14 @@
-package org.lessons.java.spring_la_mia_pizzeria_crud.service;
+package org.lessons.java.spring_la_mia_pizzeria_webapi.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.lessons.java.spring_la_mia_pizzeria_crud.model.Ingredient;
-import org.lessons.java.spring_la_mia_pizzeria_crud.repo.IngredientRepository;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.model.Ingredient;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.repo.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class IngredientService {
 
     @Autowired

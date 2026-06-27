@@ -1,6 +1,6 @@
-package org.lessons.java.spring_la_mia_pizzeria_crud.repo;
+package org.lessons.java.spring_la_mia_pizzeria_webapi.repo;
 
-import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.model.Pizza;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

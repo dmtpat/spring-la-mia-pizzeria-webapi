@@ -1,14 +1,16 @@
-package org.lessons.java.spring_la_mia_pizzeria_crud.service;
+package org.lessons.java.spring_la_mia_pizzeria_webapi.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.lessons.java.spring_la_mia_pizzeria_crud.model.Discount;
-import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
-import org.lessons.java.spring_la_mia_pizzeria_crud.repo.DiscountRepository;
-import org.lessons.java.spring_la_mia_pizzeria_crud.repo.PizzaRepository;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.model.Discount;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.repo.DiscountRepository;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PizzaService {
 
     @Autowired

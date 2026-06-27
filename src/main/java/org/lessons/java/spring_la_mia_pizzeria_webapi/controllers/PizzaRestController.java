@@ -1,9 +1,9 @@
-package org.lessons.java.spring_la_mia_pizzeria_crud.controllers;
+package org.lessons.java.spring_la_mia_pizzeria_webapi.controllers;
 
 import java.util.List;
 
-import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
-import org.lessons.java.spring_la_mia_pizzeria_crud.service.PizzaService;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,11 @@
-package org.lessons.java.spring_la_mia_pizzeria_crud.controllers;
+package org.lessons.java.spring_la_mia_pizzeria_webapi.controllers;
 
 import java.util.List;
 
-import org.lessons.java.spring_la_mia_pizzeria_crud.model.Discount;
-import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
-import org.lessons.java.spring_la_mia_pizzeria_crud.repo.IngredientRepository;
-import org.lessons.java.spring_la_mia_pizzeria_crud.repo.PizzaRepository;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.model.Discount;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.repo.IngredientRepository;
+import org.lessons.java.spring_la_mia_pizzeria_webapi.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
