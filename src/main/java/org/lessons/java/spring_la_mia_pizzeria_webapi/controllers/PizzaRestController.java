@@ -49,7 +49,7 @@ public class PizzaRestController {
     // STORE------------------------------
     @PostMapping
     public ResponseEntity<Pizza> store(@Valid @RequestBody Pizza pizza) {
-        return new ResponseEntity<Pizza>(pizzaService.create(pizza), HttpStatus.OK);
+        return new ResponseEntity<Pizza>(pizzaService.create(pizza), HttpStatus.CREATED);
     }
     // UPDATE-----------------------------
     @PutMapping("/{id}")
